@@ -14,9 +14,14 @@ public class swichController : MonoBehaviour
   public Collider bola;
   public Material offMaterial;
   public Material onMaterial;
+  public scorecontroller scoreManager;
+  public int score;
 
   private SwitchState state;
   private Renderer render;
+  public audiomanager audioManager;
+  public VFXManager VFXManager;
+
 
   private void Start()
   {
@@ -32,6 +37,9 @@ public class swichController : MonoBehaviour
     if (other == bola)
     {
       Toggle();
+      scoreManager.AddScore(score);
+      audioManager.PlaySFX(other.transform.position);
+      VFXManager.PlayVFX(other.transform.position);
     }
   }
 

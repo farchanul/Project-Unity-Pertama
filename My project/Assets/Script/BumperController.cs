@@ -11,6 +11,8 @@ public class BumperController : MonoBehaviour
     private Animator animator;
     public audiomanager audioManager;
     public VFXManager VFXManager;
+    public scorecontroller scoreManager;
+    public int score;
 
     void Start(){
         GetComponent<Renderer>().material.color = color;
@@ -22,6 +24,7 @@ public class BumperController : MonoBehaviour
 		
         if (collision.collider == bola)
         {
+            scoreManager.AddScore(score);
             Rigidbody bolaRig = bola.GetComponent<Rigidbody>();
             bolaRig.velocity *= multiplier;
             animator.SetTrigger("bumperhit");
