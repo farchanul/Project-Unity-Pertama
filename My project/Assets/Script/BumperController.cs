@@ -1,11 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BumperController : MonoBehaviour
 {
     public float multiplier;
     public Collider bola;
+    public Color color;
+    private Animator animator;
+    public audiomanager audioManager;
+    public VFXManager VFXManager;
+
+    void Start(){
+        GetComponent<Renderer>().material.color = color;
+        animator = GetComponent<Animator>();
+    }
 	
 	private void OnCollisionEnter(Collision collision)
 	{
@@ -13,8 +23,10 @@ public class BumperController : MonoBehaviour
         if (collision.collider == bola)
         {
             Rigidbody bolaRig = bola.GetComponent<Rigidbody>();
-            Debug.Log("p");
             bolaRig.velocity *= multiplier;
+            animator.SetTrigger("bumperhit");
+            audioManager.PlaySFX(collision.transform.position);
+            VFXManager.PlayVFX(collision.transform.position);
         }
     }
 }
